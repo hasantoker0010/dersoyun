@@ -83,7 +83,7 @@ function ustbarCiz() {
   c.textContent = `×${combo}`;
 }
 
-/* ---------- Ana ekran: profil ve beceri oyunları ---------- */
+/* ---------- Ana ekran: profil (beceri oyunları her dersin içinde, ders ekranında) ---------- */
 SERITLER.push(() => {
   const xp = S.xp || 0, n = seviyeOf(xp), alinan = Object.keys(S.rozet || {}).length;
   const p = Math.round((xp - seviyeXp(n)) / (seviyeXp(n + 1) - seviyeXp(n)) * 100);
@@ -91,11 +91,6 @@ SERITLER.push(() => {
     <span class="psv"><small>Seviye</small><b>${n}</b></span>
     <span class="pbil"><span>${xp} XP · sonraki seviyeye ${seviyeXp(n + 1) - xp} XP</span><span class="xpbar"><i style="width:${p}%"></i></span>
     <span class="pal"><span>Günlük seri <b>${gunSeri()}</b> gün</span><span>Rozet <b>${alinan}</b></span></span></span></button>`;
-});
-SERITLER.push(() => {
-  const liste = OYUNLAR.filter(o => o.beceri);
-  return `<h3 class="alt">Beceri oyunları</h3><div class="beceri">${liste.map(o =>
-    `<button class="bkart" data-act="yoac" data-m="${o.id}"><span class="bsimge" aria-hidden="true">${o.simge}</span><b>${esc(o.ad)}</b><small>${esc(o.alt)}</small></button>`).join('')}</div>`;
 });
 
 function rozetEkran() {
@@ -135,7 +130,6 @@ oyunEkle({
   olay: {
     ses: () => { sesAcik = !sesAcik; yerel('dersoyun.ses', sesAcik ? '1' : '0'); sesCiz(); ses('dogru'); },
     rozetler: () => rozetEkran(),
-    yoac: ds => { const o = OYUNLAR.find(x => x.id === ds.m); o.basla(o.havuz(null, new Set()), null); },
     konuoyna: ds => {
       const k = KONULAR.find(x => x.id === ds.k), o = OYUNLAR.find(x => x.id === k.oyun), hepsi = o.havuz(null, new Set());
       const sec = hepsi.filter(x => x.konu === k.id);

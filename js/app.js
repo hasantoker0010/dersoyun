@@ -26,7 +26,6 @@ function home() {
         <small>${dogruSay} doğru cevap · ${soruSay} soruluk evren</small>
       </div>
     </header>
-    ${anaSeritler()}
     <div class="gezegenler">${dersler().map((k, i) => {
       const d = DERSLER[k], z = yanlisSay(k);
       return `<button class="gezegen" style="--c:${d.renk}" data-gorsel="${k}" data-act="ders" data-ders="${k}">
@@ -34,7 +33,8 @@ function home() {
         <span class="gbilgi"><b>${esc(d.ad)}</b>
         <small>${d.sorular.length} soru · ${Object.keys(d.uniteler).length} ünite${z ? ` · <em>${z} zayıf</em>` : ''}</small></span></button>`;
     }).join('')}</div>
-    <button class="ghost wide" data-act="zayif" data-ders="hepsi">Zayıf konularım${toplam ? ` (${toplam})` : ''}</button></div>`);
+    <button class="ghost wide" data-act="zayif" data-ders="hepsi">Zayıf konularım${toplam ? ` (${toplam})` : ''}</button>
+    ${anaSeritler()}</div>`);
 }
 
 /* ---------- Ders: mod + ünite seçimi ---------- */
