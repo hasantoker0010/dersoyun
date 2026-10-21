@@ -48,7 +48,20 @@ html[data-tema="retro"] .sahne { border: 3px solid #000; box-shadow: 4px 4px 0 #
 html[data-tema="retro"] [data-gorsel] .kure { box-shadow: 4px 4px 0 #000; image-rendering: auto; }
 html[data-tema="retro"] [data-gorsel] .dbaslik::before { box-shadow: none; filter: drop-shadow(4px 4px 0 #000); }
 html[data-tema="retro"] .gezegen[data-gorsel]::after { opacity: .4; }
-html[data-tema="pastel"] .sahne { border-color: #fff; box-shadow: 0 14px 30px -18px #6B4FA088; background: linear-gradient(transparent 60%, #FFF7F0AA), var(--sahne) center / cover; }
-html[data-tema="pastel"] [data-gorsel] .kure { box-shadow: 0 8px 20px -10px #6B4FA088; }
-html[data-tema="pastel"] [data-gorsel] .dbaslik::before { box-shadow: 0 8px 20px -10px #6B4FA088; }
-html[data-tema="pastel"] .gezegen[data-gorsel]::after { opacity: .55; }
+/* Pastel: şeffaf 3D görseller; rozet çerçevesiz, sahne sağda tam görünür */
+html[data-tema="pastel"] .gezegenler { grid-template-columns: 1fr; }
+html[data-tema="pastel"] .gezegen[data-gorsel] { margin-top: 0; gap: 14px; min-height: 112px; padding: 10px 31% 10px 10px; border-radius: 999px 18px 18px 999px;
+  background: radial-gradient(160px 120px at 60px 50%, color-mix(in srgb, var(--c) 30%, #fff), transparent 70%), linear-gradient(90deg, color-mix(in srgb, var(--c) 14%, #fff), #fff 55%); }
+html[data-tema="pastel"] .gezegen[data-gorsel]::after { inset: 6px 8px 6px auto; width: 29%; background: var(--sahne) right center / contain no-repeat; opacity: 1; mask-image: none; -webkit-mask-image: none; }
+html[data-tema="pastel"] .gezegen[data-gorsel]:hover::after { transform: scale(1.05); transition: transform .25s; }
+html[data-tema="pastel"] .gezegen[data-gorsel] .gbilgi { min-width: 0; }
+html[data-tema="pastel"] [data-gorsel] .kure { width: 84px; height: 84px; border-radius: 0; background: var(--rozet) center / contain no-repeat; box-shadow: none; filter: drop-shadow(0 8px 14px color-mix(in srgb, var(--c) 45%, transparent)); }
+html[data-tema="pastel"] [data-gorsel] .dbaslik::before { border-radius: 0; background: var(--rozet) center / contain no-repeat; box-shadow: none; filter: drop-shadow(0 6px 10px color-mix(in srgb, var(--c) 45%, transparent)); }
+html[data-tema="pastel"] .sahne { border-color: #fff; box-shadow: 0 14px 30px -18px #6B4FA088;
+  background: var(--sahne) center / contain no-repeat, radial-gradient(closest-side, color-mix(in srgb, var(--c) 30%, #fff), #fff); }
+@media (min-width: 640px) {
+  html[data-tema="pastel"] .gezegen[data-gorsel] { min-height: 140px; gap: 24px; padding-right: 34%; }
+  html[data-tema="pastel"] .gezegen[data-gorsel]::after { width: 30%; }
+  html[data-tema="pastel"] [data-gorsel] .kure { width: 116px; height: 116px; }
+  html[data-tema="pastel"] .gezegen[data-gorsel] .gbilgi b { font-size: 1.6rem; }
+}
