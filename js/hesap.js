@@ -32,15 +32,17 @@ function durum(t) {
 const saat = () => new Date().toLocaleTimeString('tr', { hour: '2-digit', minute: '2-digit' });
 
 function hataMetni(e) {
-  const m = String(e && e.message || '').toLowerCase();
-  if (m.includes('invalid login')) return 'Kullanıcı adı ya da şifre yanlış.';
-  if (m.includes('not confirmed')) return 'Hesap onaylanmamış. Supabase panelinde Authentication > Sign In / Providers > Email > "Confirm email" kapatılmalı.';
-  if (m.includes('already registered')) return 'Bu kullanıcı adı alınmış. Başka bir ad seç ya da giriş yap.';
-  if (m.includes('at least') || m.includes('weak')) return 'Şifre en az 6 karakter olmalı.';
-  if (m.includes('valid email') || m.includes('invalid email') || m.includes('invalid format')) return 'Bu kullanıcı adı kabul edilmedi. Başka bir ad dene.';
-  if (m.includes('rate limit') || (e && e.status === 429)) return 'Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.';
+  const m = String(e && e.message || '').toLowerCase(), kod = String(e && (e.code || e.error_code) || '');
+  if (m.includes('invalid login') || kod === 'invalid_credentials') return 'Kullanıcı adı ya da şifre yanlış.';
+  if (m.includes('not confirmed') || kod === 'email_not_confirmed') return 'Hesap onaylanmamış. Supabase panelinde Authentication > Sign In / Providers > Email > "Confirm email" kapatılmalı.';
+  if (m.includes('already registered') || kod === 'user_already_exists') return 'Bu kullanıcı adı alınmış. Başka bir ad seç ya da giriş yap.';
+  if (m.includes('at least') || m.includes('weak') || kod === 'weak_password') return 'Şifre en az 6 karakter olmalı.';
+  if (kod === 'signup_disabled' || kod === 'email_provider_disabled' || m.includes('signups not allowed')) return 'Yeni kayıt kapalı. Supabase panelinde Sign In / Providers > Email açık ve "Allow new users to sign up" açık olmalı.';
+  if (m.includes('rate limit') || kod.includes('rate_limit') || (e && e.status === 429)) return 'Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.';
   if (m.includes('fetch') || m.includes('network')) return 'Bağlantı kurulamadı. İnternetini kontrol et.';
-  return 'Bir sorun oldu: ' + (e && e.message || 'bilinmeyen hata');
+  // Bilinmeyen hata: ham kodu göster (teşhis için) ama içindeki e-posta adresini asla gösterme
+  const temiz = String(e && e.message || 'bilinmeyen hata').replace(/\S+@\S+/g, '…');
+  return `Bir sorun oldu: ${temiz}${kod ? ` (${kod})` : ''}`;
 }
 
 /* ---------- Eşitleme ---------- */
