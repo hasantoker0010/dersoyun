@@ -1,0 +1,81 @@
+/* Temalar. Uzay varsayılandır (uzay.css); diğerleri html[data-tema] ile değişkenleri ve sabit renkli yüzeyleri ezer. */
+
+/* ---------- Uzay: hareketli yıldızlara kayan yıldız eklenir ---------- */
+html[data-tema="uzay"] body::before { animation-duration: 90s; }
+html[data-tema="uzay"]::before { content: ""; position: fixed; top: 12%; left: 105%; z-index: -1; width: 140px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #fff, transparent); transform: rotate(-24deg); pointer-events: none; animation: kayanYildiz 9s 2s linear infinite; }
+@keyframes kayanYildiz { 0% { left: 105%; top: 8%; opacity: 0; } 3% { opacity: 1; } 12% { left: 20%; top: 40%; opacity: 0; } 100% { left: 20%; top: 40%; opacity: 0; } }
+
+/* ---------- Neon Gece ---------- */
+html[data-tema="neon"] {
+  --ink: #07020F; --ink2: #140726; --ink3: #3A1466; --paper: rgba(20, 7, 38, .9); --paper2: #3A1466; --pencil: #F5E9FF;
+  --text: #F5E9FF; --muted: #B9A2D9; --cizgi: rgba(255, 64, 220, .4);
+  --pink: #FF2BD6; --yellow: #F8FF3B; --mint: #00FFC6; --sky: #00E5FF; --violet: #B26BFF; --ok: #00FFC6; --no: #FF2B6A;
+}
+html[data-tema="neon"] body { background: radial-gradient(900px 500px at 50% 120%, #FF2BD633, transparent 60%), radial-gradient(800px 400px at 50% -20%, #00E5FF22, transparent 60%), var(--ink); }
+html[data-tema="neon"] body::before { inset: auto 0 0 0; height: 45vh; background-image: linear-gradient(#FF2BD655 1px, transparent 1px), linear-gradient(90deg, #FF2BD655 1px, transparent 1px); background-size: 48px 48px; transform: perspective(300px) rotateX(60deg); transform-origin: bottom; animation: neonIzgara 4s linear infinite; mask-image: linear-gradient(transparent, #000 70%); -webkit-mask-image: linear-gradient(transparent, #000 70%); }
+html[data-tema="neon"] body::after { display: none; }
+@keyframes neonIzgara { from { background-position: 0 0; } to { background-position: 0 48px; } }
+html[data-tema="neon"] :is(.qcard, .ykart, .gb, .hzkart, .mod, .gezegen, .profil, .bkart, .fb, .gorev, .dykart, .serit, .kbar, .okart) { border-color: var(--c, var(--pink)); box-shadow: 0 0 0 1px var(--c, var(--pink)), 0 0 18px -4px var(--c, var(--pink)), inset 0 0 18px -12px var(--c, var(--pink)); }
+html[data-tema="neon"] :is(.hero h1, .dbaslik, .result .big) { color: #fff; text-shadow: 0 0 6px #fff, 0 0 18px var(--pink), 0 0 40px var(--pink); }
+html[data-tema="neon"] .main { box-shadow: 0 0 18px var(--c), 0 0 2px #fff inset; }
+html[data-tema="neon"] .ghost:hover, html[data-tema="neon"] .opt:hover:not(:disabled) { box-shadow: 0 0 14px -2px var(--c); }
+html[data-tema="neon"] .kure { box-shadow: 0 0 30px var(--c), 0 0 60px -10px var(--c); }
+
+/* ---------- Retro Piksel ---------- */
+html[data-tema="retro"] {
+  --ink: #1A1C2C; --ink2: #29366F; --ink3: #3B5DC9; --paper: #333C57; --paper2: #566C86; --pencil: #F4F4F4;
+  --text: #F4F4F4; --muted: #94B0C2; --cizgi: #566C86;
+  --pink: #B13E53; --yellow: #FFCD75; --mint: #A7F070; --sky: #41A6F6; --violet: #73EFF7; --ok: #38B764; --no: #EF7D57;
+  --piksel: 'Press Start 2P', ui-monospace, 'Courier New', monospace;
+}
+html[data-tema="retro"] body { font-family: ui-monospace, 'Cascadia Mono', 'Courier New', monospace; background: var(--ink); }
+html[data-tema="retro"] body::before { inset: 0; z-index: 90; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, .22) 0 1px, transparent 1px 3px); background-size: auto; animation: crt 6s linear infinite; }
+html[data-tema="retro"] body::after { inset: 0; z-index: 89; background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, .55) 100%); animation: none; opacity: 1; }
+@keyframes crt { 50% { opacity: .75; } }
+html[data-tema="retro"] *, html[data-tema="retro"] *::before, html[data-tema="retro"] *::after { border-radius: 0 !important; }
+html[data-tema="retro"] :is(h1, h2, .dbaslik, .big, .puan, .ubprofil, .gbilgi b, .mod b, .bkart b, .rozet, .main, .seviyeatla b, .ucan, .combo) { font-family: var(--piksel); letter-spacing: 0; }
+html[data-tema="retro"] .hero h1 { font-size: clamp(1.6rem, 8vw, 3.2rem); line-height: 1.25; text-shadow: 4px 4px 0 var(--pink); }
+html[data-tema="retro"] .dbaslik { font-size: clamp(1.1rem, 5vw, 1.8rem); }
+html[data-tema="retro"] .result .big { font-size: clamp(2.4rem, 12vw, 4.5rem); text-shadow: 4px 4px 0 #000; }
+html[data-tema="retro"] :is(.mod b, .bkart b, .gbilgi b) { font-size: .78rem; line-height: 1.5; }
+html[data-tema="retro"] .main { font-size: .8rem; line-height: 1.6; }
+html[data-tema="retro"] .puan { font-size: .9rem; }
+html[data-tema="retro"] :is(.qcard, .ykart, .gb, .hzkart, .mod, .gezegen, .profil, .bkart, .fb, .gorev, .dykart, .serit, .ghost, .opt, .urow, .tab, .kbar, .okart, .sur, .jk, .hbada) { border: 3px solid #000; box-shadow: 4px 4px 0 #000; backdrop-filter: none; }
+html[data-tema="retro"] .main { border: 3px solid #000; box-shadow: 4px 4px 0 #000; }
+html[data-tema="retro"] .main:active, html[data-tema="retro"] .opt:active:not(:disabled) { transform: translate(4px, 4px); box-shadow: none; }
+html[data-tema="retro"] .gezegen { background: var(--paper); }
+html[data-tema="retro"] .kure { box-shadow: 4px 4px 0 #000; image-rendering: pixelated; }
+html[data-tema="retro"] .ustbar { background: var(--ink); border-bottom: 3px solid #000; }
+html[data-tema="retro"] #maskot svg { image-rendering: pixelated; shape-rendering: crispEdges; }
+
+/* ---------- Pastel Gündüz ---------- */
+html[data-tema="pastel"] {
+  color-scheme: light;
+  --ink: #FFF7F0; --ink2: #FFFFFF; --ink3: #E9DFF3; --paper: rgba(255, 255, 255, .92); --paper2: #EADCF5; --pencil: #3B3355;
+  --text: #3B3355; --muted: #7A7090; --cizgi: rgba(110, 90, 160, .2);
+  --pink: #E86C9A; --yellow: #E8A93A; --mint: #3FB68F; --sky: #4E9BD8; --violet: #9A7BE0; --ok: #2FA57F; --no: #DD4F7A;
+}
+html[data-tema="pastel"] body { background: radial-gradient(800px 500px at 90% -10%, #FFD9E8, transparent 60%), radial-gradient(800px 500px at -10% 110%, #D6F0FF, transparent 60%), radial-gradient(600px 400px at 50% 50%, #F1E9FF, transparent 70%), var(--ink); }
+html[data-tema="pastel"] body::before { inset: 0; background-image: radial-gradient(circle at 20% 30%, #FFE4A866 0 60px, transparent 61px), radial-gradient(circle at 80% 70%, #C7F2E366 0 80px, transparent 81px); background-size: 100% 100%; animation: pastelSuzul 20s ease-in-out infinite alternate; }
+html[data-tema="pastel"] body::after { display: none; }
+@keyframes pastelSuzul { to { transform: translate(30px, -20px); } }
+html[data-tema="pastel"] :is(.fb, .model, .izle, .boss, .hbada, .lkutu, .duskor, .zrow, .ubar, .yl li, .bos, .cgipucu li, .hkcift) { background: #FFFFFFE6; color: var(--text); }
+html[data-tema="pastel"] :is(.qcard, .ykart, .gb, .hzkart, .mod, .profil, .bkart, .gorev, .dykart, .serit) { box-shadow: 0 10px 30px -18px #6B4FA066; }
+html[data-tema="pastel"] .gezegen { background: linear-gradient(90deg, color-mix(in srgb, var(--c) 22%, #fff), #ffffffd9 60%); }
+html[data-tema="pastel"] :is(.opt, textarea, input[type=text], .aatus, .sur, .sayi, .temasec select) { background: #fff; color: var(--text); }
+html[data-tema="pastel"] .hzsik { background: #fff; color: var(--text); }
+html[data-tema="pastel"] .bub { border-color: #9C8FC0; color: var(--muted); }
+html[data-tema="pastel"] :is(.hero h1, .dbaslik, .result .big) { text-shadow: none; color: #4A3A78; }
+html[data-tema="pastel"] :is(.puan, .serit b, .hkkart.cevap .hkarka b) { color: #4A3A78; }
+html[data-tema="pastel"] .ustbar { background: #FFF7F0D9; }
+html[data-tema="pastel"] .kod { background: #2B2540; color: #F3EEFF; }
+html[data-tema="pastel"] .main { color: #fff; text-shadow: 0 1px 1px #0004; }
+html[data-tema="pastel"] .ub, html[data-tema="pastel"] .tab.on { color: #fff; text-shadow: 0 1px 1px #0004; }
+html[data-tema="pastel"] #maskot .yuz { fill: #fff; }
+html[data-tema="pastel"] #maskot .goz circle { fill: #4A3A78; }
+html[data-tema="pastel"] #maskot .agiz { stroke: #4A3A78; }
+html[data-tema="pastel"] .konsol { background: #2B2540; }
+
+@media (prefers-reduced-motion: reduce) {
+  html::before, html[data-tema] body::before { animation: none !important; }
+}
