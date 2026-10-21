@@ -76,16 +76,16 @@ function oyunKartlari() {
     }).join('')}</div>`;
 }
 
-// Ders klasöründeki video ve PDF'ler (data/kaynaklar.js); dosyalar kopyalanmaz, ../Ders/ altından açılır
-const kaynakYolu = (r, f) => KAYNAK_KOK + encodeURIComponent(r.klasor) + '/' + encodeURIComponent(f);
+// Ders materyalleri (data/kaynaklar.js): Google Drive linkleri, yeni sekmede açılır
+const KAYNAK_TUR = { video: 'Video', pdf: 'PDF', sinav: 'Çıkmış sınav (PDF)' };
 
 function materyalHtml(k) {
   const r = window.KAYNAKLAR && KAYNAKLAR[k];
-  if (!r) return '';
+  if (!r || !r.length) return '';
   return `<h3 class="alt">Çalışma materyalleri</h3>
+    <p class="not">Dosyalar Google Drive'ında açılır, hesabınla giriş yapmış olman gerekir.</p>
     <div class="materyal">
-      ${r.video ? `<figure class="video"><video controls preload="metadata" src="${kaynakYolu(r, r.video)}"></video><figcaption>Vize hazırlık videosu (Ünite 1-4)</figcaption></figure>` : ''}
-      ${r.pdf.map(([ad, f]) => `<a class="pdf" href="${kaynakYolu(r, f)}" target="_blank" rel="noopener"><b>${esc(ad)}</b><span>PDF, yeni sekmede açılır</span></a>`).join('')}
+      ${r.map(([t, ad, url]) => `<a class="pdf" href="${esc(url)}" target="_blank" rel="noopener"><b>${esc(ad)}</b><span>${KAYNAK_TUR[t] || 'Dosya'}, Drive'da yeni sekmede açılır</span></a>`).join('')}
     </div>`;
 }
 

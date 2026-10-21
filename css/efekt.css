@@ -138,3 +138,4 @@
 @media (prefers-reduced-motion: reduce) {
   #efekt, .seviyeatla { display: none; }
 }
+p.not{font-size:.85em;opacity:.75;margin:.2em 0 .6em}
