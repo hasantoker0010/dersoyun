@@ -26,6 +26,7 @@ function home() {
         <small>${dogruSay} doğru cevap · ${soruSay} soruluk evren</small>
       </div>
     </header>
+    <h3 class="alt">Derslerim</h3>
     <div class="gezegenler">${dersler().map((k, i) => {
       const d = DERSLER[k], z = yanlisSay(k);
       return `<button class="gezegen" style="--c:${d.renk}" data-gorsel="${k}" data-act="ders" data-ders="${k}">
