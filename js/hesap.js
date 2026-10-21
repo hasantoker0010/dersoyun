@@ -7,7 +7,15 @@ const SB = window.supabase ? window.supabase.createClient(SB_URL, SB_KEY, { auth
 
 // Bu cihazdaki kayıt hangi hesaba ve buluttaki hangi sürüme bağlı: { uid, surum, kirli }
 const META = 'dersoyun.bulut';
-const HESAP = { kul: null, mod: 'giris', email: '', durum: '', catisma: null };
+const HESAP = { kul: null, mod: 'giris', ad: '', durum: '', catisma: null };
+
+// Kullanıcı adı arka planda "ad@dersoyun.app" e-postasına çevrilir; e-posta hiçbir yerde gösterilmez ve gerçek bir adres değildir
+// (bu yüzden e-postayla şifre sıfırlama yoktur; Supabase'de "Confirm email" kapalı olmalı)
+const KULLANICI_GECERLI = /^[a-zA-ZçğıİöşüÇĞÖŞÜ0-9_]{3,30}$/;
+const SADE = { ç: 'c', ğ: 'g', ı: 'i', ö: 'o', ş: 's', ü: 'u' };
+const sadelestir = a => a.trim().toLocaleLowerCase('tr').replace(/[çğıöşü]/g, c => SADE[c]);
+const epostaOf = a => sadelestir(a) + '@dersoyun.app';
+const adOf = u => u.email.split('@')[0];
 let sira = Promise.resolve(), zamanlayici = 0, degisim = 0;
 
 const metaOku = () => { try { return JSON.parse(localStorage.getItem(META)) || {}; } catch (e) { return {}; } };
@@ -25,11 +33,11 @@ const saat = () => new Date().toLocaleTimeString('tr', { hour: '2-digit', minute
 
 function hataMetni(e) {
   const m = String(e && e.message || '').toLowerCase();
-  if (m.includes('invalid login')) return 'E-posta ya da şifre yanlış.';
-  if (m.includes('not confirmed')) return 'E-postanı henüz onaylamadın. Gelen kutundaki bağlantıya dokun.';
-  if (m.includes('already registered')) return 'Bu e-posta ile zaten bir hesap var. Giriş yap.';
+  if (m.includes('invalid login')) return 'Kullanıcı adı ya da şifre yanlış.';
+  if (m.includes('not confirmed')) return 'Hesap onaylanmamış. Supabase panelinde Authentication > Sign In / Providers > Email > "Confirm email" kapatılmalı.';
+  if (m.includes('already registered')) return 'Bu kullanıcı adı alınmış. Başka bir ad seç ya da giriş yap.';
   if (m.includes('at least') || m.includes('weak')) return 'Şifre en az 6 karakter olmalı.';
-  if (m.includes('valid email') || m.includes('invalid email') || m.includes('invalid format')) return 'Geçerli bir e-posta yaz.';
+  if (m.includes('valid email') || m.includes('invalid email') || m.includes('invalid format')) return 'Bu kullanıcı adı kabul edilmedi. Başka bir ad dene.';
   if (m.includes('rate limit') || (e && e.status === 429)) return 'Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.';
   if (m.includes('fetch') || m.includes('network')) return 'Bağlantı kurulamadı. İnternetini kontrol et.';
   return 'Bir sorun oldu: ' + (e && e.message || 'bilinmeyen hata');
@@ -104,7 +112,7 @@ function esitle() {
 function hesapBtnCiz() {
   const b = document.getElementById('hesapBtn'); if (!b) return;
   b.classList.toggle('acik', !!HESAP.kul);
-  b.setAttribute('aria-label', HESAP.kul ? `Hesap: ${HESAP.kul.email}` : 'Giriş yap veya kayıt ol');
+  b.setAttribute('aria-label', HESAP.kul ? `Hesap: ${adOf(HESAP.kul)}` : 'Giriş yap veya kayıt ol');
 }
 
 if (SB) {
@@ -112,8 +120,7 @@ if (SB) {
     HESAP.kul = oturum ? oturum.user : null;
     hesapBtnCiz();
     // Bu geri çağrının içinde Supabase çağırmak kilitlenir; bu yüzden sonraya bırakılır
-    if (ev === 'PASSWORD_RECOVERY') setTimeout(() => { HESAP.mod = 'yeni'; hesapEkran(); });
-    else if (oturum && (ev === 'INITIAL_SESSION' || ev === 'SIGNED_IN')) setTimeout(esitle);
+    if (oturum && (ev === 'INITIAL_SESSION' || ev === 'SIGNED_IN')) setTimeout(esitle);
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden) { if (zamanlayici) gonder(); } else esitle(); });
   addEventListener('pagehide', () => { if (zamanlayici) gonder(); });
@@ -136,15 +143,8 @@ function hesapEkran(not = '') {
       <button class="ghost wide" data-act="hesapyerel">Bu cihazdakini kullan</button>`);
   }
 
-  if (HESAP.kul && HESAP.mod === 'yeni') {
-    return sar(`<p class="lalt">Yeni şifreni yaz.</p>
-      <form id="hform" class="hform" novalidate>
-        <label>Yeni şifre<input id="hsifre" type="password" autocomplete="new-password" minlength="6" required></label>
-        <button class="main" type="submit">Şifreyi kaydet</button><p class="hhata" id="hhata" role="alert">${esc(not)}</p></form>`);
-  }
-
   if (HESAP.kul) {
-    return sar(`<p class="lalt">Giriş yapıldı: <b>${esc(HESAP.kul.email)}</b><br>İlerlemen bu hesapta saklanır. Başka bir cihazda aynı e-posta ve şifreyle giriş yapınca kaldığın yerden devam edersin.</p>
+    return sar(`<p class="lalt">Giriş yapıldı: <b>${esc(adOf(HESAP.kul))}</b><br>İlerlemen bu hesapta saklanır. Başka bir cihazda aynı kullanıcı adı ve şifreyle giriş yapınca kaldığın yerden devam edersin. Şifreni unutursan sıfırlanamaz, bir yere not et.</p>
       <p class="lalt" id="hesapdurum" aria-live="polite">${esc(HESAP.durum)}</p>
       <button class="main" data-act="hesapesitle">Şimdi eşitle</button>
       <button class="ghost wide" data-act="hesapcikis">Çıkış yap</button>
@@ -157,41 +157,36 @@ function hesapEkran(not = '') {
       <button class="tab ${kayit ? '' : 'on'}" role="tab" aria-selected="${!kayit}" data-act="hesapmod" data-mod="giris">Giriş yap</button>
       <button class="tab ${kayit ? 'on' : ''}" role="tab" aria-selected="${kayit}" data-act="hesapmod" data-mod="kayit">Kayıt ol</button></div>
     <form id="hform" class="hform" novalidate>
-      <label>E-posta<input id="hemail" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" value="${esc(HESAP.email)}" required></label>
+      <label>Kullanıcı adı<input id="hkullanici" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" minlength="3" maxlength="30" value="${esc(HESAP.ad)}" required></label>
       <label>Şifre<input id="hsifre" type="password" autocomplete="${kayit ? 'new-password' : 'current-password'}" minlength="6" required></label>
       <button class="main" type="submit">${kayit ? 'Hesap oluştur' : 'Giriş yap'}</button>
       <p class="hhata" id="hhata" role="alert">${esc(not)}</p>
-      ${kayit ? '' : '<button type="button" class="ghost" data-act="hesapunuttum">Şifremi unuttum</button>'}</form>`);
+      ${kayit ? '<p class="lalt">En az 3 karakter; harf, rakam ve alt çizgi (_). Şifreni unutursan sıfırlanamaz, bir yere not et.</p>' : ''}</form>`);
 }
 
 const hhata = t => { const el = document.getElementById('hhata'); if (el) el.textContent = t; };
-const yonlendir = () => /^https?:$/.test(location.protocol) ? location.origin + location.pathname : undefined;
 
 document.addEventListener('submit', async e => {
   if (e.target.id !== 'hform') return;
   e.preventDefault();
-  const email = (document.getElementById('hemail') || {}).value, sifre = document.getElementById('hsifre').value, btn = e.target.querySelector('button[type=submit]');
-  if (email !== undefined) HESAP.email = email.trim();
-  if (email !== undefined && !HESAP.email) return hhata('E-postanı yaz.');
+  const ad = document.getElementById('hkullanici').value, sifre = document.getElementById('hsifre').value, btn = e.target.querySelector('button[type=submit]');
+  HESAP.ad = ad.trim();
+  if (!HESAP.ad) return hhata('Kullanıcı adını yaz.');
+  if (!KULLANICI_GECERLI.test(HESAP.ad)) return hhata(HESAP.ad.length < 3 ? 'Kullanıcı adı en az 3 karakter olmalı.' : 'Kullanıcı adında yalnızca harf, rakam ve alt çizgi (_) olabilir; en fazla 30 karakter.');
   if (!sifre) return hhata('Şifreni yaz.');
   btn.disabled = true; hhata('');
   try {
-    if (HESAP.mod === 'yeni') {
-      const { error } = await SB.auth.updateUser({ password: sifre });
-      if (error) throw error;
-      HESAP.mod = 'giris'; bildir('Şifre değişti'); return home();
-    }
     if (HESAP.mod === 'kayit') {
-      const { data, error } = await SB.auth.signUp({ email: HESAP.email, password: sifre, options: { emailRedirectTo: yonlendir() } });
+      const { data, error } = await SB.auth.signUp({ email: epostaOf(HESAP.ad), password: sifre });
       if (error) throw error;
       if (data.user && data.user.identities && !data.user.identities.length) throw { message: 'User already registered' };
-      if (!data.session) { btn.disabled = false; return hhata('Onay bağlantısını e-postana gönderdik. Bağlantıya dokunduktan sonra buradan giriş yap.'); }
+      if (!data.session) { btn.disabled = false; return hhata(hataMetni({ message: 'not confirmed' })); }
     } else {
-      const { error } = await SB.auth.signInWithPassword({ email: HESAP.email, password: sifre });
+      const { error } = await SB.auth.signInWithPassword({ email: epostaOf(HESAP.ad), password: sifre });
       if (error) throw error;
     }
     HESAP.mod = 'giris';
-    bildir('Giriş yapıldı', HESAP.email);
+    bildir('Giriş yapıldı', sadelestir(HESAP.ad));
     home();
   } catch (err) { btn.disabled = false; hhata(hataMetni(err)); }
 });
@@ -200,18 +195,12 @@ oyunEkle({
   id: '_hesap', havuz: () => [],
   olay: {
     hesap: () => hesapEkran(),
-    hesapmod: ds => { HESAP.mod = ds.mod; const el = document.getElementById('hemail'); if (el) HESAP.email = el.value.trim(); hesapEkran(); },
+    hesapmod: ds => { HESAP.mod = ds.mod; const el = document.getElementById('hkullanici'); if (el) HESAP.ad = el.value.trim(); hesapEkran(); },
     hesapesitle: () => { durum('Eşitleniyor…'); esitle().then(() => { if (HESAP.catisma) return; const el = document.getElementById('hesapdurum'); if (el && el.textContent === 'Eşitleniyor…') durum('Eşitlendi · ' + saat()); }); },
     hesapbulut: () => { const b = HESAP.catisma; HESAP.catisma = null; benimse(b); home(); },
     hesapyerel: () => {
       HESAP.catisma = null; degisim++;
       gonder(true).then(() => home());
-    },
-    hesapunuttum: async () => {
-      const email = document.getElementById('hemail').value.trim(); HESAP.email = email;
-      if (!email) return hhata('Önce e-postanı yaz.');
-      const { error } = await SB.auth.resetPasswordForEmail(email, { redirectTo: yonlendir() });
-      hhata(error ? hataMetni(error) : 'Şifre sıfırlama bağlantısını e-postana gönderdik.');
     },
     hesapcikis: async () => {
       // Çıkışta bu cihazdaki ilerleme silinir (ortak cihazda başkasının hesabına karışmasın); önce buluta yazıldığından emin ol
@@ -228,5 +217,5 @@ oyunEkle({
 SERITLER.push(() => !SB ? '' : HESAP.catisma
   ? '<button class="serit" style="--c:#FF6FB5" data-act="hesap"><b>Eşitleme seni bekliyor</b><span>Bu cihazdaki ve hesabındaki ilerleme farklı, birini seç</span></button>'
   : HESAP.kul
-    ? `<button class="serit bitti" style="--c:#4EF2C3" data-act="hesap"><b>Hesabın bağlı</b><span>${esc(HESAP.kul.email)}${HESAP.durum ? ' · ' + esc(HESAP.durum) : ''}</span></button>`
-    : '<button class="serit" style="--c:#6FD3FF" data-act="hesap"><b>Hesap aç, her cihazdan devam et</b><span>E-posta ile giriş yap, ilerlemen buluta kaydedilsin</span></button>');
+    ? `<button class="serit bitti" style="--c:#4EF2C3" data-act="hesap"><b>Hesabın bağlı</b><span>${esc(adOf(HESAP.kul))}${HESAP.durum ? ' · ' + esc(HESAP.durum) : ''}</span></button>`
+    : '<button class="serit" style="--c:#6FD3FF" data-act="hesap"><b>Hesap aç, her cihazdan devam et</b><span>Kullanıcı adı ve şifreyle giriş yap, ilerlemen buluta kaydedilsin</span></button>');
