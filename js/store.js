@@ -4,7 +4,7 @@ const bos = () => ({ yanlis: {}, stat: {}, best: {} });
 
 let S = bos();
 try { S = Object.assign(bos(), JSON.parse(localStorage.getItem(KEY))); } catch (e) { /* localStorage kapalıysa bellekte tutulur */ }
-const kaydet = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } };
+const kaydet = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } if (typeof bulutIsaretle === 'function') bulutIsaretle(); }; // bulutIsaretle: js/hesap.js
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

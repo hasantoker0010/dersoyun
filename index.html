@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="css/yeni-oyunlar.css">
 <link rel="stylesheet" href="css/tema.css">
 <link rel="stylesheet" href="css/gorsel.css">
+<link rel="stylesheet" href="css/hesap.css">
 </head>
 <body>
 <header class="ustbar" id="ustbar">
@@ -24,6 +25,7 @@
   <span class="combo" id="ubCombo" hidden></span>
   <span class="ara"></span>
   <label class="temasec"><span class="gizli-metin">Tema</span><select id="temaSec" aria-label="Tema"><option value="uzay">Uzay</option><option value="neon">Neon Gece</option><option value="retro">Retro Piksel</option><option value="pastel">Pastel Gündüz</option></select></label>
+  <button class="sesbtn" id="hesapBtn" data-act="hesap" aria-label="Giriş yap veya kayıt ol"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></button>
   <button class="sesbtn" id="sesBtn" data-act="ses" aria-pressed="true" aria-label="Sesi kapat"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="hop" d="M4 9h4l5-4v14l-5-4H4z"/><path class="dalga" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/><path class="carpi" d="M16 9l6 6M22 9l-6 6"/></svg></button>
 </header>
 <main id="app"></main>
@@ -49,6 +51,8 @@
 <script src="js/games.js"></script>
 <script src="js/oyunlar/ortak.js"></script>
 <script src="js/ilerleme.js"></script>
+<script src="js/vendor/supabase.js"></script>
+<script src="js/hesap.js"></script>
 <script src="js/oyunlar/hizli-ates.js"></script>
 <script src="js/oyunlar/tur.js"></script>
 <script src="js/oyunlar/leitner.js"></script>
