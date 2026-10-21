@@ -19,7 +19,7 @@ function home() {
     <header class="hero">
       <p class="kimin">Hasan Toker için</p>
       <h1>Vize<br>Alıştırmaları</h1>
-      <p>AÖF Yapay Zekâ Destekli Kodlama. Bir gezegen seç, görevini tamamla, zayıf yörüngelerini düzelt.</p>
+      <p>Bu uygulama, Hasan Toker tarafından AÖF Yapay Zekâ Destekli Kodlama bölümü öğrencileri için tasarlanmıştır. Kullandığınız için teşekkürler, sınavlarınızda başarılar dilerim!</p>
       <div class="gorev">
         <div class="gb1"><span>Görev ilerlemesi</span><span>%${yuzde}</span></div>
         <div class="ray" aria-hidden="true"><i style="width:${Math.max(yuzde, 4)}%"><svg class="roket" viewBox="0 0 24 24"><path fill="#FFD66B" d="M12 2c3 2 5 5.5 5 9.5V15l2 3h-4l-1 2h-4l-1-2H5l2-3v-3.5C7 7.5 9 4 12 2z"/><circle cx="12" cy="10" r="2" fill="#060918"/><path fill="#FF6FB5" d="M10 20h4l-2 3z"/></svg></i></div>
