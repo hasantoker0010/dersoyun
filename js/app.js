@@ -29,7 +29,7 @@ function home() {
     ${anaSeritler()}
     <div class="gezegenler">${dersler().map((k, i) => {
       const d = DERSLER[k], z = yanlisSay(k);
-      return `<button class="gezegen" style="--c:${d.renk}" data-act="ders" data-ders="${k}">
+      return `<button class="gezegen" style="--c:${d.renk}" data-gorsel="${k}" data-act="ders" data-ders="${k}">
         <span class="kure ${i % 2 ? '' : 'halka'}" aria-hidden="true"><span class="simge">${esc(d.simge)}</span></span>
         <span class="gbilgi"><b>${esc(d.ad)}</b>
         <small>${d.sorular.length} soru · ${Object.keys(d.uniteler).length} ünite${z ? ` · <em>${z} zayıf</em>` : ''}</small></span></button>`;
@@ -45,8 +45,9 @@ function dersEkran(k) {
   stopT();
   const d = DERSLER[C.ders], hep = !C.units.size;
   const mevcut = MODLAR.filter(m => havuz(C.ders, m, new Set()).length);
-  view(`<div class="wrap" style="--c:${d.renk}">
+  view(`<div class="wrap" style="--c:${d.renk}" data-gorsel="${C.ders}">
     <div class="top"><button class="ghost" data-act="home">‹ Dersler</button></div>
+    <div class="sahne" aria-hidden="true"></div>
     <h2 class="dbaslik">${esc(d.ad)}</h2>
     <h3 class="alt">Ünite</h3>
     <div class="urows">

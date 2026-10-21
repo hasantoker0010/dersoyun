@@ -1,0 +1,54 @@
+/* Temaya göre ders görselleri: her temada her dersin bir rozeti (yuvarlak simge) ve bir sahnesi (manzara) var.
+   [data-gorsel] taşıyan öğe --rozet ve --sahne değişkenlerini alır; tema değişince yalnızca CSS değiştiği için yeniden çizim gerekmez.
+   Görseller img/tema/<tema>/<ders>-rozet|sahne.webp altında. */
+
+/* Uzay varsayılandır */
+[data-gorsel="python"] { --rozet: url(../img/tema/uzay/python-rozet.webp); --sahne: url(../img/tema/uzay/python-sahne.webp); }
+[data-gorsel="algoritmalar"] { --rozet: url(../img/tema/uzay/algoritmalar-rozet.webp); --sahne: url(../img/tema/uzay/algoritmalar-sahne.webp); }
+[data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/uzay/veri-yapilari-rozet.webp); --sahne: url(../img/tema/uzay/veri-yapilari-sahne.webp); }
+[data-gorsel="yz-matematik"] { --rozet: url(../img/tema/uzay/yz-matematik-rozet.webp); --sahne: url(../img/tema/uzay/yz-matematik-sahne.webp); }
+[data-gorsel="yz-giris"] { --rozet: url(../img/tema/uzay/yz-giris-rozet.webp); --sahne: url(../img/tema/uzay/yz-giris-sahne.webp); }
+
+html[data-tema="neon"] [data-gorsel="python"] { --rozet: url(../img/tema/neon/python-rozet.webp); --sahne: url(../img/tema/neon/python-sahne.webp); }
+html[data-tema="neon"] [data-gorsel="algoritmalar"] { --rozet: url(../img/tema/neon/algoritmalar-rozet.webp); --sahne: url(../img/tema/neon/algoritmalar-sahne.webp); }
+html[data-tema="neon"] [data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/neon/veri-yapilari-rozet.webp); --sahne: url(../img/tema/neon/veri-yapilari-sahne.webp); }
+html[data-tema="neon"] [data-gorsel="yz-matematik"] { --rozet: url(../img/tema/neon/yz-matematik-rozet.webp); --sahne: url(../img/tema/neon/yz-matematik-sahne.webp); }
+html[data-tema="neon"] [data-gorsel="yz-giris"] { --rozet: url(../img/tema/neon/yz-giris-rozet.webp); --sahne: url(../img/tema/neon/yz-giris-sahne.webp); }
+
+html[data-tema="retro"] [data-gorsel="python"] { --rozet: url(../img/tema/retro/python-rozet.webp); --sahne: url(../img/tema/retro/python-sahne.webp); }
+html[data-tema="retro"] [data-gorsel="algoritmalar"] { --rozet: url(../img/tema/retro/algoritmalar-rozet.webp); --sahne: url(../img/tema/retro/algoritmalar-sahne.webp); }
+html[data-tema="retro"] [data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/retro/veri-yapilari-rozet.webp); --sahne: url(../img/tema/retro/veri-yapilari-sahne.webp); }
+html[data-tema="retro"] [data-gorsel="yz-matematik"] { --rozet: url(../img/tema/retro/yz-matematik-rozet.webp); --sahne: url(../img/tema/retro/yz-matematik-sahne.webp); }
+html[data-tema="retro"] [data-gorsel="yz-giris"] { --rozet: url(../img/tema/retro/yz-giris-rozet.webp); --sahne: url(../img/tema/retro/yz-giris-sahne.webp); }
+
+html[data-tema="pastel"] [data-gorsel="python"] { --rozet: url(../img/tema/pastel/python-rozet.webp); --sahne: url(../img/tema/pastel/python-sahne.webp); }
+html[data-tema="pastel"] [data-gorsel="algoritmalar"] { --rozet: url(../img/tema/pastel/algoritmalar-rozet.webp); --sahne: url(../img/tema/pastel/algoritmalar-sahne.webp); }
+html[data-tema="pastel"] [data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/pastel/veri-yapilari-rozet.webp); --sahne: url(../img/tema/pastel/veri-yapilari-sahne.webp); }
+html[data-tema="pastel"] [data-gorsel="yz-matematik"] { --rozet: url(../img/tema/pastel/yz-matematik-rozet.webp); --sahne: url(../img/tema/pastel/yz-matematik-sahne.webp); }
+html[data-tema="pastel"] [data-gorsel="yz-giris"] { --rozet: url(../img/tema/pastel/yz-giris-rozet.webp); --sahne: url(../img/tema/pastel/yz-giris-sahne.webp); }
+
+/* Ana ekran: gezegen küresi yerine rozet, sağ tarafta soluk sahne */
+.gezegen[data-gorsel] { position: relative; overflow: hidden; isolation: isolate; }
+.gezegen[data-gorsel]::after { content: ""; position: absolute; inset: 0 0 0 auto; width: 46%; z-index: -1; background: var(--sahne) center / cover; opacity: .32; pointer-events: none;
+  mask-image: linear-gradient(90deg, transparent, #000 70%); -webkit-mask-image: linear-gradient(90deg, transparent, #000 70%); transition: opacity .2s; }
+.gezegen[data-gorsel]:hover::after { opacity: .5; }
+[data-gorsel] .kure { background: var(--rozet) center / cover; box-shadow: 0 0 30px -8px var(--c); }
+[data-gorsel] .kure .simge, [data-gorsel] .kure.halka::after { display: none; }
+.gezegen[data-gorsel]:hover .kure { transform: rotate(-6deg) scale(1.08); }
+
+/* Ders ekranı: başlığın üstünde sahne afişi, başlıkta rozet */
+.sahne { position: relative; height: clamp(120px, 34vw, 190px); margin-top: 12px; border-radius: 20px; border: 1px solid var(--cizgi);
+  background: linear-gradient(transparent 55%, color-mix(in srgb, var(--ink) 75%, transparent)), var(--sahne) center / cover; box-shadow: 0 18px 36px -24px #000, 0 0 30px -18px var(--c); }
+[data-gorsel] .dbaslik::before { width: 64px; height: 64px; background: var(--rozet) center / cover; }
+
+/* Tema ince ayarları */
+html[data-tema="neon"] .sahne { border-color: var(--c); box-shadow: 0 0 0 1px var(--c), 0 0 22px -4px var(--c); }
+html[data-tema="neon"] [data-gorsel] .kure { box-shadow: 0 0 24px var(--c), 0 0 50px -12px var(--c); }
+html[data-tema="retro"] .sahne { border: 3px solid #000; box-shadow: 4px 4px 0 #000; }
+html[data-tema="retro"] [data-gorsel] .kure { box-shadow: 4px 4px 0 #000; image-rendering: auto; }
+html[data-tema="retro"] [data-gorsel] .dbaslik::before { box-shadow: none; filter: drop-shadow(4px 4px 0 #000); }
+html[data-tema="retro"] .gezegen[data-gorsel]::after { opacity: .4; }
+html[data-tema="pastel"] .sahne { border-color: #fff; box-shadow: 0 14px 30px -18px #6B4FA088; background: linear-gradient(transparent 60%, #FFF7F0AA), var(--sahne) center / cover; }
+html[data-tema="pastel"] [data-gorsel] .kure { box-shadow: 0 8px 20px -10px #6B4FA088; }
+html[data-tema="pastel"] [data-gorsel] .dbaslik::before { box-shadow: 0 8px 20px -10px #6B4FA088; }
+html[data-tema="pastel"] .gezegen[data-gorsel]::after { opacity: .55; }
