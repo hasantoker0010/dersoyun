@@ -69,7 +69,7 @@ function dersEkran(k) {
 function oyunKartlari() {
   const liste = OYUNLAR.filter(o => o.her || o.havuz(C.ders, new Set()).length >= (o.min || 1));
   if (!liste.length) return '';
-  return `<h3 class="alt">Oyunlar</h3>
+  return `<h3 class="alt">Alıştırmalar</h3>
     <div class="modlar">${liste.map(o => {
       const n = o.havuz(C.ders, C.units).length, ok = o.her || n >= (o.min || 1);
       const not = o.etiket ? o.etiket(C.ders, C.units, n) : ok ? n + ' soru' : o.yok || 'Bu ünitede yeterli soru yok';
