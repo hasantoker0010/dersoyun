@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><filter id="g" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="100" cy="100" r="94" fill="#07020F" stroke="#FF2BD6" stroke-width="10"/><g transform="translate(100 100) scale(.78) translate(-100 -100)"><g filter="url(#g)">
+<rect x="70" y="20" width="60" height="22" rx="6" fill="none" stroke="#FF2BD6" stroke-width="7"/>
+<polygon points="100,54 136,86 100,118 64,86" fill="none" stroke="#FF2BD6" stroke-width="7" stroke-linejoin="round"/>
+<rect x="70" y="130" width="60" height="22" rx="6" fill="none" stroke="#FF2BD6" stroke-width="7"/>
+<rect x="18" y="76" width="30" height="22" fill="none" stroke="#FF2BD6" stroke-width="7"/>
+<rect x="152" y="76" width="30" height="22" fill="none" stroke="#FF2BD6" stroke-width="7"/>
+<path d="M100 42 V54 M100 118 V130 M48 87 H64 M136 87 H152" stroke="#FF2BD6" stroke-width="6" stroke-linecap="round"/></g></g></svg>
