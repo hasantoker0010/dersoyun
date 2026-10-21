@@ -1,12 +1,10 @@
 -- Dersoyun: hesap ve bulut ilerleme tablosu.
 -- Supabase panelinde SQL Editor > New query'ye yapıştırıp Run'a bas. Tekrar çalıştırılabilir.
 --
--- Bunu çalıştırdıktan sonra Supabase panelinde bir kez şunları ayarla (Authentication bölümü):
---   1) URL Configuration > Site URL: sitenin gerçek adresi (örn. https://hasantoker0010.github.io/dersoyun/).
---      Boş bırakırsan onay ve şifre sıfırlama e-postalarındaki bağlantı localhost'a gider.
---   2) URL Configuration > Redirect URLs: aynı adresi ekle.
---   3) Sign In / Providers > Email: "Confirm email" açıksa kayıt olan kişi e-postadaki bağlantıya dokunmadan giriş yapamaz.
---      Yalnızca sen kullanacaksan kapatabilirsin; açık bırakmak sahte e-postayla hesap açılmasını engeller.
+-- Bunu çalıştırdıktan sonra Supabase panelinde bir kez şunu ayarla:
+--   Authentication > Sign In / Providers > Email > "Confirm email" KAPALI olmalı.
+-- Site kullanıcı adıyla çalışır ve arka planda "kullaniciadi@dersoyun.app" biçiminde uydurma bir e-posta kullanır.
+-- Bu adreslere e-posta gitmediği için onay açık kalırsa kimse giriş yapamaz; şifre sıfırlama da yoktur.
 --
 -- Her kullanıcının ilerlemesi (XP, seviye, yanlışlar, rekorlar...) tek satırda JSON olarak durur.
 -- Satır güvenliği (RLS) açıktır: giriş yapan kullanıcı yalnızca kendi satırını okuyup yazabilir,
