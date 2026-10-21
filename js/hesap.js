@@ -161,6 +161,7 @@ function hesapEkran(not = '') {
     <form id="hform" class="hform" novalidate>
       <label>Kullanıcı adı<input id="hkullanici" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" minlength="3" maxlength="30" value="${esc(HESAP.ad)}" required></label>
       <label>Şifre<input id="hsifre" type="password" autocomplete="${kayit ? 'new-password' : 'current-password'}" minlength="6" required></label>
+      ${kayit ? '<label>Şifre (tekrar)<input id="hsifre2" type="password" autocomplete="new-password" minlength="6" required></label>' : ''}
       <button class="main" type="submit">${kayit ? 'Hesap oluştur' : 'Giriş yap'}</button>
       <p class="hhata" id="hhata" role="alert">${esc(not)}</p>
       ${kayit ? '<p class="lalt">En az 3 karakter; harf, rakam ve alt çizgi (_). Şifreni unutursan sıfırlanamaz, bir yere not et.</p>' : ''}</form>`);
@@ -176,6 +177,7 @@ document.addEventListener('submit', async e => {
   if (!HESAP.ad) return hhata('Kullanıcı adını yaz.');
   if (!KULLANICI_GECERLI.test(HESAP.ad)) return hhata(HESAP.ad.length < 3 ? 'Kullanıcı adı en az 3 karakter olmalı.' : 'Kullanıcı adında yalnızca harf, rakam ve alt çizgi (_) olabilir; en fazla 30 karakter.');
   if (!sifre) return hhata('Şifreni yaz.');
+  if (HESAP.mod === 'kayit' && sifre !== document.getElementById('hsifre2').value) return hhata('Şifreler aynı değil. İkisini de aynı yaz.');
   btn.disabled = true; hhata('');
   try {
     if (HESAP.mod === 'kayit') {
