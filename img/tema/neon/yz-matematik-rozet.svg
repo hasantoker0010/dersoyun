@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><filter id="g" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="100" cy="100" r="94" fill="#07020F" stroke="#FF2BD6" stroke-width="10"/><g transform="translate(100 100) scale(.78) translate(-100 -100)"><g filter="url(#g)">
+<path d="M30 172 H178 M30 172 V22" stroke="#00FFC6" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M40 142 C70 40 100 40 116 110 S150 150 172 58" fill="none" stroke="#00FFC6" stroke-width="7" stroke-linecap="round"/>
+<circle cx="70" cy="90" r="7" fill="#00FFC6"/><circle cx="116" cy="110" r="7" fill="#00FFC6"/><circle cx="150" cy="128" r="7" fill="#00FFC6"/></g></g></svg>

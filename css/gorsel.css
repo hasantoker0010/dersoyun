@@ -1,31 +1,31 @@
 /* Temaya göre ders görselleri: her temada her dersin bir rozeti (yuvarlak simge) ve bir sahnesi (manzara) var.
    [data-gorsel] taşıyan öğe --rozet ve --sahne değişkenlerini alır; tema değişince yalnızca CSS değiştiği için yeniden çizim gerekmez.
-   Görseller img/tema/<tema>/<ders>-rozet|sahne.webp altında. */
+   Görseller img/tema/<tema>/<ders>-rozet|sahne.svg altında. */
 
 /* Uzay varsayılandır */
-[data-gorsel="python"] { --rozet: url(../img/tema/uzay/python-rozet.webp); --sahne: url(../img/tema/uzay/python-sahne.webp); }
-[data-gorsel="algoritmalar"] { --rozet: url(../img/tema/uzay/algoritmalar-rozet.webp); --sahne: url(../img/tema/uzay/algoritmalar-sahne.webp); }
-[data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/uzay/veri-yapilari-rozet.webp); --sahne: url(../img/tema/uzay/veri-yapilari-sahne.webp); }
-[data-gorsel="yz-matematik"] { --rozet: url(../img/tema/uzay/yz-matematik-rozet.webp); --sahne: url(../img/tema/uzay/yz-matematik-sahne.webp); }
-[data-gorsel="yz-giris"] { --rozet: url(../img/tema/uzay/yz-giris-rozet.webp); --sahne: url(../img/tema/uzay/yz-giris-sahne.webp); }
+[data-gorsel="python"] { --rozet: url(../img/tema/uzay/python-rozet.svg); --sahne: url(../img/tema/uzay/python-sahne.svg); }
+[data-gorsel="algoritmalar"] { --rozet: url(../img/tema/uzay/algoritmalar-rozet.svg); --sahne: url(../img/tema/uzay/algoritmalar-sahne.svg); }
+[data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/uzay/veri-yapilari-rozet.svg); --sahne: url(../img/tema/uzay/veri-yapilari-sahne.svg); }
+[data-gorsel="yz-matematik"] { --rozet: url(../img/tema/uzay/yz-matematik-rozet.svg); --sahne: url(../img/tema/uzay/yz-matematik-sahne.svg); }
+[data-gorsel="yz-giris"] { --rozet: url(../img/tema/uzay/yz-giris-rozet.svg); --sahne: url(../img/tema/uzay/yz-giris-sahne.svg); }
 
-html[data-tema="neon"] [data-gorsel="python"] { --rozet: url(../img/tema/neon/python-rozet.webp); --sahne: url(../img/tema/neon/python-sahne.webp); }
-html[data-tema="neon"] [data-gorsel="algoritmalar"] { --rozet: url(../img/tema/neon/algoritmalar-rozet.webp); --sahne: url(../img/tema/neon/algoritmalar-sahne.webp); }
-html[data-tema="neon"] [data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/neon/veri-yapilari-rozet.webp); --sahne: url(../img/tema/neon/veri-yapilari-sahne.webp); }
-html[data-tema="neon"] [data-gorsel="yz-matematik"] { --rozet: url(../img/tema/neon/yz-matematik-rozet.webp); --sahne: url(../img/tema/neon/yz-matematik-sahne.webp); }
-html[data-tema="neon"] [data-gorsel="yz-giris"] { --rozet: url(../img/tema/neon/yz-giris-rozet.webp); --sahne: url(../img/tema/neon/yz-giris-sahne.webp); }
+html[data-tema="neon"] [data-gorsel="python"] { --rozet: url(../img/tema/neon/python-rozet.svg); --sahne: url(../img/tema/neon/python-sahne.svg); }
+html[data-tema="neon"] [data-gorsel="algoritmalar"] { --rozet: url(../img/tema/neon/algoritmalar-rozet.svg); --sahne: url(../img/tema/neon/algoritmalar-sahne.svg); }
+html[data-tema="neon"] [data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/neon/veri-yapilari-rozet.svg); --sahne: url(../img/tema/neon/veri-yapilari-sahne.svg); }
+html[data-tema="neon"] [data-gorsel="yz-matematik"] { --rozet: url(../img/tema/neon/yz-matematik-rozet.svg); --sahne: url(../img/tema/neon/yz-matematik-sahne.svg); }
+html[data-tema="neon"] [data-gorsel="yz-giris"] { --rozet: url(../img/tema/neon/yz-giris-rozet.svg); --sahne: url(../img/tema/neon/yz-giris-sahne.svg); }
 
-html[data-tema="retro"] [data-gorsel="python"] { --rozet: url(../img/tema/retro/python-rozet.webp); --sahne: url(../img/tema/retro/python-sahne.webp); }
-html[data-tema="retro"] [data-gorsel="algoritmalar"] { --rozet: url(../img/tema/retro/algoritmalar-rozet.webp); --sahne: url(../img/tema/retro/algoritmalar-sahne.webp); }
-html[data-tema="retro"] [data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/retro/veri-yapilari-rozet.webp); --sahne: url(../img/tema/retro/veri-yapilari-sahne.webp); }
-html[data-tema="retro"] [data-gorsel="yz-matematik"] { --rozet: url(../img/tema/retro/yz-matematik-rozet.webp); --sahne: url(../img/tema/retro/yz-matematik-sahne.webp); }
-html[data-tema="retro"] [data-gorsel="yz-giris"] { --rozet: url(../img/tema/retro/yz-giris-rozet.webp); --sahne: url(../img/tema/retro/yz-giris-sahne.webp); }
+html[data-tema="retro"] [data-gorsel="python"] { --rozet: url(../img/tema/retro/python-rozet.svg); --sahne: url(../img/tema/retro/python-sahne.svg); }
+html[data-tema="retro"] [data-gorsel="algoritmalar"] { --rozet: url(../img/tema/retro/algoritmalar-rozet.svg); --sahne: url(../img/tema/retro/algoritmalar-sahne.svg); }
+html[data-tema="retro"] [data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/retro/veri-yapilari-rozet.svg); --sahne: url(../img/tema/retro/veri-yapilari-sahne.svg); }
+html[data-tema="retro"] [data-gorsel="yz-matematik"] { --rozet: url(../img/tema/retro/yz-matematik-rozet.svg); --sahne: url(../img/tema/retro/yz-matematik-sahne.svg); }
+html[data-tema="retro"] [data-gorsel="yz-giris"] { --rozet: url(../img/tema/retro/yz-giris-rozet.svg); --sahne: url(../img/tema/retro/yz-giris-sahne.svg); }
 
-html[data-tema="pastel"] [data-gorsel="python"] { --rozet: url(../img/tema/pastel/python-rozet.webp); --sahne: url(../img/tema/pastel/python-sahne.webp); }
-html[data-tema="pastel"] [data-gorsel="algoritmalar"] { --rozet: url(../img/tema/pastel/algoritmalar-rozet.webp); --sahne: url(../img/tema/pastel/algoritmalar-sahne.webp); }
-html[data-tema="pastel"] [data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/pastel/veri-yapilari-rozet.webp); --sahne: url(../img/tema/pastel/veri-yapilari-sahne.webp); }
-html[data-tema="pastel"] [data-gorsel="yz-matematik"] { --rozet: url(../img/tema/pastel/yz-matematik-rozet.webp); --sahne: url(../img/tema/pastel/yz-matematik-sahne.webp); }
-html[data-tema="pastel"] [data-gorsel="yz-giris"] { --rozet: url(../img/tema/pastel/yz-giris-rozet.webp); --sahne: url(../img/tema/pastel/yz-giris-sahne.webp); }
+html[data-tema="pastel"] [data-gorsel="python"] { --rozet: url(../img/tema/pastel/python-rozet.svg); --sahne: url(../img/tema/pastel/python-sahne.svg); }
+html[data-tema="pastel"] [data-gorsel="algoritmalar"] { --rozet: url(../img/tema/pastel/algoritmalar-rozet.svg); --sahne: url(../img/tema/pastel/algoritmalar-sahne.svg); }
+html[data-tema="pastel"] [data-gorsel="veri-yapilari"] { --rozet: url(../img/tema/pastel/veri-yapilari-rozet.svg); --sahne: url(../img/tema/pastel/veri-yapilari-sahne.svg); }
+html[data-tema="pastel"] [data-gorsel="yz-matematik"] { --rozet: url(../img/tema/pastel/yz-matematik-rozet.svg); --sahne: url(../img/tema/pastel/yz-matematik-sahne.svg); }
+html[data-tema="pastel"] [data-gorsel="yz-giris"] { --rozet: url(../img/tema/pastel/yz-giris-rozet.svg); --sahne: url(../img/tema/pastel/yz-giris-sahne.svg); }
 
 /* Ana ekran: gezegen küresi yerine rozet, sağ tarafta soluk sahne */
 .gezegen[data-gorsel] { position: relative; overflow: hidden; isolation: isolate; }
