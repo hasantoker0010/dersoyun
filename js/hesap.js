@@ -38,6 +38,8 @@ function hataMetni(e) {
   if (m.includes('already registered') || kod === 'user_already_exists') return 'Bu kullanıcı adı alınmış. Başka bir ad seç ya da giriş yap.';
   if (m.includes('at least') || m.includes('weak') || kod === 'weak_password') return 'Şifre en az 6 karakter olmalı.';
   if (kod === 'signup_disabled' || kod === 'email_provider_disabled' || m.includes('signups not allowed')) return 'Yeni kayıt kapalı. Supabase panelinde Sign In / Providers > Email açık ve "Allow new users to sign up" açık olmalı.';
+  // Kayıtta bu hata yalnızca Supabase onay e-postası göndermeye çalışırsa çıkar, yani "Confirm email" hâlâ açıktır
+  if (kod === 'over_email_send_rate_limit') return 'Supabase e-posta gönderme sınırına takıldı (saatte birkaç kayıt). Panelde Authentication > Sign In / Providers > Email > "Confirm email" kapatılırsa bu hata hiç çıkmaz.';
   if (m.includes('rate limit') || kod.includes('rate_limit') || (e && e.status === 429)) return 'Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.';
   if (m.includes('fetch') || m.includes('network')) return 'Bağlantı kurulamadı. İnternetini kontrol et.';
   // Bilinmeyen hata: ham kodu göster (teşhis için) ama içindeki e-posta adresini asla gösterme
